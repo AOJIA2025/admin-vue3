@@ -49,12 +49,13 @@ const rules = {
 
 const loading = ref<boolean>(false);
 const router = useRouter();
+const store: any = useUserStore();
 
 const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
     if (validateResult === true) {
         loading.value = true;
         try {
-            const res = await useUserStore().login(formData);
+            const res = await store.login(formData);
             if (res !== false) {
                 MessagePlugin.success({ content: `欢迎用户：${useUserStore().username}`, duration: 2000 });
                 await router.push('/');
