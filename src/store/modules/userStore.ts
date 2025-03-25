@@ -3,8 +3,8 @@ import userService from "@/api/user.service";
 import type { user } from "@/api/types";
 
 interface UserAuth {
-    token: string | null,
-    username: string | null,
+    token: string | null;
+    username: string | null;
 }
 
 export const useUserStore = defineStore('user-store', {

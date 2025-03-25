@@ -58,7 +58,7 @@ const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
             const res = await store.login(formData);
             if (res !== false) {
                 MessagePlugin.success({ content: `欢迎用户：${useUserStore().username}`, duration: 2000 });
-                await router.push('/');
+                await router.replace('/');
             }
 
         } finally {

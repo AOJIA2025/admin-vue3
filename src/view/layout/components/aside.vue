@@ -48,24 +48,17 @@
                 </template>
                 资源编辑
             </t-menu-item>
-            <template #operations>
-                <t-button variant="text" shape="square" @click="changeCollapsed">
-                    <template #icon><t-icon name="view-list" /></template>
-                </t-button>
-            </template>
         </t-menu>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { bizStore } from '@/store/modules/bizStore';
 
-const collapsed = ref<boolean>(false);
+const store = bizStore();
+const collapsed = computed(() => store.navFlag);
 const expanded = ref<string[]>(['2', '3']);
-
-const changeCollapsed = () => {
-    collapsed.value = !collapsed.value;
-};
 </script>
 
 <style lang="less" scoped>

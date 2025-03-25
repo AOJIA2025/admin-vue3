@@ -1,7 +1,9 @@
 <template>
     <div>
         <t-layout class="body">
-            <t-aside class="aside">
+            <t-aside :class="{
+                'aside-show': show
+            }">
                 <aside-page />
             </t-aside>
             <t-layout>
@@ -21,6 +23,12 @@
 <script lang="ts" setup>
 import headerPage from '@/view/layout/components/header.vue';
 import asidePage from '@/view/layout/components/aside.vue';
+import { bizStore } from '@/store/modules/bizStore.ts';
+import { computed } from 'vue';
+
+const store = bizStore();
+const show = computed(() => store.navFlag);
+
 </script>
 
 <style lang="less" scoped>
@@ -37,5 +45,9 @@ import asidePage from '@/view/layout/components/aside.vue';
     background: #fff;
     height: 100%;
     width: 100%;
+}
+
+.aside-show {
+    width: 64px !important;
 }
 </style>
