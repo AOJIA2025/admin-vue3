@@ -1,18 +1,26 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-router";
 
 import login from "@/view/login/index.vue";
-import dashboard from "@/dashboard/dashboard.vue";
+import layout from "@/view/layout/layout.vue";
 import { setupRouterGuards } from "./routerGuards";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        name: 'Dashboard',
-        component: dashboard,
-        meta: {
-            requiresAuth: true,
-            title: 'Dashboard'
-        }
+        name: 'Layout',
+        component: layout,
+        redirect: '/dashboard',
+        children: [
+            {
+                path: 'dashboard',
+                name: 'Dashboard',
+                component: () => import('@/view/dashboard/dashboard.vue'),
+                meta: {
+                    requiresAuth: true,
+                    title: 'Dashboard'
+                }
+            }
+        ]
     },
     {
         path: '/login',
