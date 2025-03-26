@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         component: login,
         meta: {
             requiresAuth: false,
-            title: 'Login'
+            title: 'Login',
         }
     },
     {
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Error404',
         component: error404,
         meta: {
-            requiresAuth: false,
+            requiresAuth: true,
             title: '404',
         }
     }

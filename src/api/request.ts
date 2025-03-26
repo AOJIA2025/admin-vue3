@@ -43,6 +43,14 @@ instance.interceptors.response.use((response) => {
     }
     return MessagePlugin('error', { content: response.data?.message, duration: 4000 });
 }, (error => {
+
+    if (error.status === 404) {
+        return router.push('/error404');
+    } else if (error.status === 401) {
+        return router.push('/error401');
+    } else if (error.status === 403) {
+        return router.push('/error403');
+    }
     // 响应错误处理
     return MessagePlugin('error', { content: error, duration: 4000 });
 }))

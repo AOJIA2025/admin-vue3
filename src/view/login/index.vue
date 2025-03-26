@@ -35,7 +35,7 @@ import { reactive, ref } from 'vue';
 import type { user } from '@/types/types';
 import { useUserStore } from '@/store/modules/user';
 import { type FormProps, MessagePlugin } from 'tdesign-vue-next';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const formData: user = reactive({
     username: 'admin',
@@ -49,7 +49,11 @@ const rules = {
 
 const loading = ref<boolean>(false);
 const router = useRouter();
+const route = useRoute();
 const store: any = useUserStore();
+
+// 判断是否携带原路径
+const redirect = route.query?.redirect || '/';
 
 const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
     if (validateResult === true) {
@@ -57,8 +61,8 @@ const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
         try {
             const res = await store.login(formData);
             if (res !== false) {
-                MessagePlugin.success({ content: `欢迎用户：${useUserStore().username}`, duration: 2000 });
-                await router.replace('/');
+                (!redirect || redirect === '/dashboard') && MessagePlugin.success({ content: `欢迎用户：${useUserStore().username}`, duration: 2000 });
+                await router.push(redirect as string);
             }
 
         } finally {
@@ -92,4 +96,4 @@ const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
         }
     }
 }
-</style>@/types/types@/store/modules/user
+</style>
