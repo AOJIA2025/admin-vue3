@@ -1,5 +1,5 @@
-import axios from "./axios";
-import type { user } from "./types";
+import axios from "../request";
+import type { user } from "../../types/types";
 
 class userService {
     // 登录请求

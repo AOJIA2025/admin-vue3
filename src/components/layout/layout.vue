@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts" setup>
-import headerPage from '@/view/layout/components/header.vue';
-import asidePage from '@/view/layout/components/aside.vue';
+import headerPage from './header.vue';
+import asidePage from './aside.vue'
 import { bizStore } from '@/store/modules/bizStore.ts';
 import { computed } from 'vue';
 

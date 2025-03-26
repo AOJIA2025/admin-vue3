@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import userService from "@/api/user.service";
-import type { user } from "@/api/types";
+import { userService } from "@/api/index";
+import type { user } from "@/types/types";
 
 interface UserAuth {
     token: string | null;

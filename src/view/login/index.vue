@@ -32,8 +32,8 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import type { user } from '@/api/types';
-import { useUserStore } from '@/store/modules/userStore';
+import type { user } from '@/types/types';
+import { useUserStore } from '@/store/modules/user';
 import { type FormProps, MessagePlugin } from 'tdesign-vue-next';
 import { useRouter } from 'vue-router';
 
@@ -92,4 +92,4 @@ const handleLogin: FormProps['onSubmit'] = async ({ validateResult }) => {
         }
     }
 }
-</style>
+</style>@/types/types@/store/modules/user

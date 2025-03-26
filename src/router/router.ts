@@ -1,7 +1,10 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-router";
 
 import login from "@/view/login/index.vue";
-import layout from "@/view/layout/layout.vue";
+import layout from "@/components/layout/layout.vue";
+import error401 from '@/view/error/error401.vue';
+import error403 from "@/view/error/error403.vue";
+import error404 from "@/view/error/error404.vue";
 import { setupRouterGuards } from "./routerGuards";
 
 const routes: Array<RouteRecordRaw> = [
@@ -29,6 +32,33 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: false,
             title: 'Login'
+        }
+    },
+    {
+        path: '/error401',
+        name: 'Error401',
+        component: error401,
+        meta: {
+            requiresAuth: false,
+            title: '401'
+        }
+    },
+    {
+        path: '/error403',
+        name: 'Error403',
+        component: error403,
+        meta: {
+            requiresAuth: false,
+            title: '403'
+        }
+    },
+    {
+        path: '/error404',
+        name: 'Error404',
+        component: error404,
+        meta: {
+            requiresAuth: false,
+            title: '404',
         }
     }
 ]

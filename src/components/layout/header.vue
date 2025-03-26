@@ -28,7 +28,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { bizStore } from '@/store/modules/bizStore';
-import { useUserStore } from '@/store/modules/userStore';
+import { useUserStore } from '@/store/modules/user';
 
 const store: any = bizStore();
 const userStore = useUserStore();
@@ -94,4 +94,4 @@ const clickHandler = ({ value }: { content: string, value: number }) => {
 .hamburger-btn.active .line:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
 }
-</style>
+</style>@/store/modules/user

@@ -1,7 +1,7 @@
 import axios, { type AxiosInstance } from "axios";
 import env from "@/config/env";
 import { MessagePlugin } from 'tdesign-vue-next';
-import { useUserStore } from "@/store/modules/userStore";
+import { useUserStore } from "@/store/modules/user";
 import router from "@/router/router";
 
 // 创建 axios 实例
