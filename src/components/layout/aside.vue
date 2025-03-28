@@ -1,64 +1,49 @@
 <template>
     <div>
-        <t-menu v-model:expanded="expanded" theme="light" default-value="3-2" expand-mutex :collapsed="collapsed">
+        <t-menu v-model:expanded="expanded" theme="light" :default-value="defaultValue" expand-mutex
+            :collapsed="collapsed" @change="handleChange">
             <template #logo>
-                <img height="28" src="https://tdesign.gtimg.com/site/baseLogo-light.png" alt="logo" />
+                <img height="32" src="../../assets//images//M.png" alt="logo" />
+                <span class="logo-title">牛马管理系统</span>
             </template>
-            <t-submenu value="3">
+            <t-submenu v-for="(item, index) in permissionList" :key="item.name" :value="String(index)">
                 <template #icon>
-                    <t-icon name="mail" />
+                    <t-icon :name="item.meta.icon" />
                 </template>
                 <template #title>
-                    <span>消息区</span>
+                    <span>{{ item.meta.title }}</span>
                 </template>
-                <t-submenu value="3-1" title="二级菜单">
-                    <t-menu-item value="3-1-1"> 三级菜单内容 </t-menu-item>
-                    <t-menu-item value="3-1-2"> 三级菜单内容 </t-menu-item>
-                    <t-menu-item value="3-1-3"> 三级菜单内容 </t-menu-item>
-                </t-submenu>
-                <t-submenu value="3-5" title="二级菜单">
-                    <t-menu-item value="3-5-1"> 三级菜单内容 </t-menu-item>
-                    <t-menu-item value="3-5-2"> 三级菜单内容 </t-menu-item>
-                    <t-menu-item value="3-5-3"> 三级菜单内容 </t-menu-item>
-                </t-submenu>
-                <t-menu-item value="3-2"> 二级菜单内容 </t-menu-item>
-                <t-menu-item value="3-3"> 二级菜单内容 </t-menu-item>
-                <t-menu-item value="3-4"> 二级菜单内容 </t-menu-item>
+                <t-menu-item v-for="(child, childIndex) in  item.children " :key="child.name"
+                    :value="index + '-' + childIndex" :to="item.path + (item.path === '/' ? '' : '/') + child.path">
+                    {{
+            child.meta.title
+        }}
+                </t-menu-item>
             </t-submenu>
-            <t-menu-item value="user-circle">
-                <template #icon>
-                    <t-icon name="user-circle" />
-                </template>
-                个人中心
-            </t-menu-item>
-            <t-submenu value="4">
-                <template #icon>
-                    <t-icon name="play-circle" />
-                </template>
-                <template #title>
-                    <span>视频区</span>
-                </template>
-                <t-menu-item value="4-1"> 二级菜单内容 </t-menu-item>
-                <t-menu-item value="4-2"> 二级菜单内容 </t-menu-item>
-                <t-menu-item value="4-3"> 二级菜单内容 </t-menu-item>
-            </t-submenu>
-            <t-menu-item value="edit1">
-                <template #icon>
-                    <t-icon name="edit-1" />
-                </template>
-                资源编辑
-            </t-menu-item>
         </t-menu>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { bizStore } from '@/store/modules/bizStore';
+import { permission } from '@/store/modules/permission';
 
 const store = bizStore();
+const permissionStore = permission();
+const expanded = ref<string[]>(['0']);
+
 const collapsed = computed(() => store.navFlag);
-const expanded = ref<string[]>(['2', '3']);
+const permissionList: any = computed(() => permissionStore.listRoutes);
+const defaultValue = computed(() => {
+    expanded.value = [permissionStore.position.split('-')?.[0] || '0'];
+    return permissionStore.position;
+});
+
+const handleChange = (e: any) => {
+    permissionStore.setPosition(e);
+}
+
 </script>
 
 <style lang="less" scoped>
@@ -78,5 +63,10 @@ const expanded = ref<string[]>(['2', '3']);
 
 :deep(.t-default-menu) {
     height: 100vh !important;
+}
+
+.logo-title {
+    font-size: 20px;
+    color: #13227a;
 }
 </style>

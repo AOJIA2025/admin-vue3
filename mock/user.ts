@@ -14,6 +14,12 @@ export default [
                     message: 'success',
                     token: 'xxxxxxxxxx',
                 }
+            } else if (body.username === 'workers' && body.password === '123456') {
+                return {
+                    code: '000000',
+                    message: 'success',
+                    token: 'yyyyyyyyyy',
+                }
             }
 
             return {
@@ -33,7 +39,17 @@ export default [
                     code: '000000',
                     message: 'success',
                     data: {
-                        username: 'admin'
+                        username: 'admin',
+                        roles: 'admin'
+                    }
+                }
+            } else if (body.token === 'yyyyyyyyyy') {
+                return {
+                    code: '000000',
+                    message: 'success',
+                    data: {
+                        username: 'workers',
+                        roles: 'workers'
                     }
                 }
             }

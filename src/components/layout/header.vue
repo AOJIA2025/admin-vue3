@@ -26,14 +26,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { bizStore } from '@/store/modules/bizStore';
 import { useUserStore } from '@/store/modules/user';
+import { useRouter } from 'vue-router';
+import { permission } from "@/store/modules/permission";
 
 const store: any = bizStore();
 const userStore = useUserStore();
-const isActive = ref<boolean>(false);
-const username = userStore.username?.slice(0, 1) || '未获取';
+const permissionStore = permission();
+const router = useRouter();
+const isActive = ref<boolean>(!store.navFlag);
+const username = computed(() => userStore.username?.slice(0, 1) || '未获取');
 
 const toggleMenu = (): void => {
     isActive.value = !isActive.value;
@@ -45,11 +49,13 @@ const options = [
 ];
 
 const clickHandler = ({ value }: { content: string, value: number }) => {
-    console.log(value);
     if (value === 1) {
-        // 推出登录
+        // 退出登录
+        userStore.$reset();
+        permissionStore.$reset();
+        store.$reset();
         localStorage.clear();
-        location.reload();
+        router.replace('/login');
     }
 }
 

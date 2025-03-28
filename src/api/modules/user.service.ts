@@ -11,6 +11,11 @@ class userService {
     info() {
         return axios.post('/api/user/info');
     }
+
+    // 列表权限
+    getPermission(data: { roles: string }) {
+        return axios.post('/api/info/permission', data);
+    }
 }
 
 export default new userService();
