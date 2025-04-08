@@ -4,6 +4,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // 引入vite mock
 import { viteMockServe } from 'vite-plugin-mock';
@@ -28,6 +29,12 @@ export default defineConfig(({ mode }) => {
       vueJsx(),
       vueDevTools(),
       viteMockServe(viteMock), // 配置 vite mock
+      visualizer({
+        open: true,       // 打包完成后自动打开浏览器
+        gzipSize: true,  // 显示gzip压缩后的大小
+        brotliSize: true, // 显示brotli压缩后的大小
+        filename: "stats.html" // 分析文件输出名
+      })
     ],
     resolve: {
       alias: {
